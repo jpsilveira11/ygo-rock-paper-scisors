@@ -34,6 +34,7 @@ main{
 .main__left{
     width: 30%;
     min-width: 300px;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
@@ -106,7 +107,12 @@ main{
     border-radius: 8px;
 }
 
-
+#player-cards .card{
+    transition:transform .2s;
+}
+#player-cards .card:hover{
+    transform:scale(1.2);
+}
 
 
 #next-match{
