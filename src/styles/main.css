@@ -1,0 +1,114 @@
+.bg{
+    position: absolute;
+    z-index: -2;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+.bg .video{
+    height: 100vh;
+}
+.bg::after{
+    content:"";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background:linear-gradient(
+        90deg,
+        rgba(0,0,0,1)0%,
+        rgba(0,0,0,.8)50%,
+        rgba(0,0,0,1)100%
+    );
+}
+
+main{
+    position: relative;
+    height: 100vh;
+    z-index: 3;
+    display: flex;
+}
+.main__left{
+    width: 30%;
+    min-width: 300px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.frame{
+    border:3px solid #000;
+    border-radius: 5px;
+}
+.score_box{
+    background-color: #fff;
+    padding: 30px;
+}
+.card_data{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 1rem;
+    height: 6rem;
+    width: 100%;
+}
+#card-name{
+    font-size:.8rem;
+}
+#card-type{
+    font-size: 1rem;
+}
+
+.main__right{
+  width: 70%;
+
+}
+
+.card-box__container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: .3rem;
+}
+.card-versus{
+    margin-top:5rem;
+    display: flex;
+    flex-direction: column;
+    padding-top: .1rem;
+    height: 300px;
+    
+}
+.versus-top,.versus-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.versus-bottom{
+    margin-top: 1rem;
+}
+.card-box{
+    height: 9rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.on-field{
+    height: 11.2rem;
+    width: 8rem;
+    /* border:1px solid #fff; */
+    border-radius: 8px;
+}
+
+
+
+
+#next-match{
+    display: none;
+}
