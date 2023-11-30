@@ -109,6 +109,8 @@ state.score.scoreBox.innerText = `Won: ${state.score.player} | Lost: ${state.sco
 }
 
 async function newDuel(){
+    state.card.name.innerText="Select";
+    state.card.type.innerText="a Card!";
     state.card.art.src="";
     state.actions.button.style.display="none";
     state.cardsOnField.player.style.display="none";
@@ -121,6 +123,22 @@ const audio=new Audio(`./src/assets/audios/${status}.wav`);
 audio.play();
 }
 
+async function displayFieldFrame(boolean){
+if (boolean==true){
+    state.cardsOnField.player.style.display = 'block';
+    state.cardsOnField.opponent.style.display = 'block';
+    }
+if (boolean==false){
+    state.cardsOnField.player.style.display = 'none';
+    state.cardsOnField.opponent.style.display = 'none';
+    }
+}
+
+async function drawCardsOnField(cardID,opponentCardID){
+    state.cardsOnField.player.src = cards[cardID].src;
+    state.cardsOnField.opponent.src = cards[opponentCardID].src;
+}
+
 async function drawButton(result){
     state.actions.button.innerText = result;
     state.actions.button.style.display = "block";
@@ -130,11 +148,10 @@ async function setCard(cardID){
     await lockCards();
     let opponentCardID=await getARandomCard();
 
-    state.cardsOnField.player.style.display = 'block';
-    state.cardsOnField.opponent.style.display = 'block';
+    await displayFieldFrame(true);
 
-    state.cardsOnField.player.src = cards[cardID].src;
-    state.cardsOnField.opponent.src = cards[opponentCardID].src;
+    await drawCardsOnField(cardID, opponentCardID);
+
 
     let result=await duel(cardID,opponentCardID,state);
 
@@ -173,6 +190,7 @@ async function draw(cards,side){
 }
 
 function run(){
+displayFieldFrame(false);
 draw(5,state.side.player);
 draw(5,state.side.opponent);
 }
