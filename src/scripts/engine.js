@@ -193,5 +193,7 @@ function run(){
 displayFieldFrame(false);
 draw(5,state.side.player);
 draw(5,state.side.opponent);
+const bgm=document.getElementById("bgm");
+bgm.play();
 }
 run();
