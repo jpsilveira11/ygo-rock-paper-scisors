@@ -1,8 +1,20 @@
+const pathTo="./src/assets/icons/";
 const state={
     score:{
-        playerScore:0,
-        opponentScore:0,
+        player:0,
+        opponent:0,
         scoreBox:document.getElementById('score'),
+    },
+    players:{
+        player:"player-field-card",
+        opponent:"opponent-field-card",
+        
+    },
+    side:{
+        player:"player-cards",
+        playerBox:document.querySelector(".card-box.framed#player-cards"),
+        opponent:"opponent-cards",
+        opponentBox:document.querySelector(".card-box.framed#opponent-cards"),
     },
     card:{
         art:document.getElementById("card-art"),
@@ -13,13 +25,12 @@ const state={
         playerCard:document.getElementById("player-field-card"),
         opponentCard:document.getElementById("opponent-field-card"),
     },
+
     actions:{
         button:document.getElementById("next-match"),
     },
 };
 
-const pathTo="./src/assets/icons/";
-// const matchup={}
 const cards=[
     {
         id:0,
@@ -27,36 +38,39 @@ const cards=[
         type:"Paper",
         src:`${pathTo}dragon.png`,
         beats:"Rock",
-        beatenBy:"Scisors",
+        beatenBy:"Scissors",
 },
     {
         id:1,
         name:"Dark Magician",
         type:"Rock",
         src:`${pathTo}magician.png`,
-        beats:"Scisors",
+        beats:"Scissors",
         beatenBy:"Paper",
     },
     {
         id:2,
         name:"Exodia the Forbidden One",
-        type:"Scisors",
+        type:"Scissors",
         src:`${pathTo}exodia.png`,
         beats:"Paper",
-        BeatenBy:"Rock",
+        beatenBy:"Rock",
+    },
+];
+
+function matchup(playerCard,opponentCard) {
+    if (playerCard.beats===opponentCard.type){
+        state.score.player++;
+        return "Won!";
     }
-]
-
-const players={
-player:"player-field-card",
-opponent:"opponent-field-card",
-
+    if(playerCard.beatenBy===opponentCard.type) {
+        state.score.opponent++;
+        return "Lost!";
+    }
+    if(playerCard.type===opponentCard.type){
+        return "Tie!";
+    } 
 }
-const side={
-player:"player-cards",
-opponent:"opponent-cards",
-};
-
 
 async function getARandomCard(){
     const index=Math.floor(Math.random()*cards.length);
@@ -67,9 +81,49 @@ async function showCard(cardID){
     state.card.art.src=cards[cardID].src;
     state.card.name.innerText=cards[cardID].name;
     state.card.type.innerText=`Attribute: ${cards[cardID].type}`;
-console.log(state.card.art.src);
-console.log(state.card.name.innerText);
-console.log(state.card.type.innerText);
+}
+
+async function lockCards(){
+let opponentCards = state.side.opponentBox;
+    let opponentImgs = opponentCards.querySelectorAll("img");
+    opponentImgs.forEach((img)=>img.remove());
+
+let playerCards = state.side.playerBox;
+    let playerImgs = playerCards.querySelectorAll("img");
+playerImgs.forEach((img)=>img.remove());
+
+}
+
+async function duel(playerCardID,opponentCardID){
+    let playerCard=cards[playerCardID];
+    let opponentCard=cards[opponentCardID];
+    let result=matchup(playerCard, opponentCard);
+    return result;
+}
+
+async function newScore(){
+state.score.scoreBox.innerText = `Won: ${state.score.player} | Lost: ${state.score.opponent}`
+}
+
+async function drawButton(result){
+    state.actions.button.innerText = result;
+    state.actions.button.style.display = "block";
+}
+
+async function setCard(cardID){
+    await lockCards();
+    let opponentCardID=await getARandomCard();
+
+    state.cardsOnField.playerCard.style.display = 'block';
+    state.cardsOnField.opponentCard.style.display = 'block';
+
+    state.cardsOnField.playerCard.src = cards[cardID].src;
+    state.cardsOnField.opponentCard.src = cards[opponentCardID].src;
+
+    let result=await duel(cardID,opponentCardID,state);
+
+    await newScore();
+    await drawButton(result);
 }
 
 async function getCardArt(cardID,theSide){
@@ -78,14 +132,14 @@ cardArt.setAttribute("src","./src/assets/icons/card-back.png");
 cardArt.setAttribute("height","100px");
 cardArt.setAttribute("data-id",cardID);
 cardArt.classList.add("card");
-if(theSide===side.player){
+if(theSide===state.side.player){
 
     cardArt.addEventListener("mouseover",()=>{
         showCard(cardID);
     });
 
     cardArt.addEventListener("click",()=>{
-    //setCard(cardArt.getAttribute("data-id"));
+    setCard(cardArt.getAttribute("data-id"));
     });
 }
 
@@ -103,7 +157,7 @@ async function draw(cards,side){
 }
 
 function run(){
-draw(5,side.player);
-draw(5,side.opponent);
+draw(5,state.side.player);
+draw(5,state.side.opponent);
 }
 run();

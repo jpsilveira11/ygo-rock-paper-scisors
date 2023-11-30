@@ -32,7 +32,7 @@ main{
     display: flex;
 }
 .main__left{
-    width: 30%;
+    width: 35%;
     min-width: 300px;
     display: flex;
     flex-direction: column;
@@ -65,7 +65,7 @@ main{
 }
 
 .main__right{
-  width: 70%;
+  width: 65%;
 
 }
 
