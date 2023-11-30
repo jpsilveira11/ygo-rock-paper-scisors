@@ -18,7 +18,10 @@ Minijogo de Pedra, Papel ou Tesoura encorporando elementos de "Yu-Gi-Oh!" feito 
 
 ### Como Jogar
 
-- Escolha uma carta, é possível ver qual item ela representa no canto esquerdo da tela (Exodia: Tesoura; Mago Negro: Pedra; Dragão Branco de Olhos Azuis: Papel.);
+- Escolha uma carta, é possível ver qual item ela representa no canto esquerdo da tela:
+  - Exodia: Tesoura;
+  - Mago Negro: Pedra;
+  - Dragão Branco de Olhos Azuis: Papel;
 - Se a carta que escolher vencer a carta do oponente, você leva a rodada, caso contrário, o oponente leva a rodada, no caso de empate, a rodada continua até que saia um vencedor.
 
 ### Contribuições
