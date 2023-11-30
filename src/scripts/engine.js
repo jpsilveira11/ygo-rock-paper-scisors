@@ -22,8 +22,8 @@ const state={
         type:document.getElementById("card-type"),
     },
     cardsOnField:{
-        playerCard:document.getElementById("player-field-card"),
-        opponentCard:document.getElementById("opponent-field-card"),
+        player:document.getElementById("player-field-card"),
+        opponent:document.getElementById("opponent-field-card"),
     },
 
     actions:{
@@ -105,6 +105,14 @@ async function newScore(){
 state.score.scoreBox.innerText = `Won: ${state.score.player} | Lost: ${state.score.opponent}`
 }
 
+async function newDuel(){
+    state.card.art.src="";
+    state.actions.button.style.display="none";
+    state.cardsOnField.player.style.display="none";
+    state.cardsOnField.opponent.style.display="none";
+    run();
+}
+
 async function drawButton(result){
     state.actions.button.innerText = result;
     state.actions.button.style.display = "block";
@@ -114,11 +122,11 @@ async function setCard(cardID){
     await lockCards();
     let opponentCardID=await getARandomCard();
 
-    state.cardsOnField.playerCard.style.display = 'block';
-    state.cardsOnField.opponentCard.style.display = 'block';
+    state.cardsOnField.player.style.display = 'block';
+    state.cardsOnField.opponent.style.display = 'block';
 
-    state.cardsOnField.playerCard.src = cards[cardID].src;
-    state.cardsOnField.opponentCard.src = cards[opponentCardID].src;
+    state.cardsOnField.player.src = cards[cardID].src;
+    state.cardsOnField.opponent.src = cards[opponentCardID].src;
 
     let result=await duel(cardID,opponentCardID,state);
 
