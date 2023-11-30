@@ -14,6 +14,7 @@ Minijogo de Pedra, Papel ou Tesoura encorporando elementos de "Yu-Gi-Oh!" feito 
   ### Funcionalidades
 
 - **Placar**: É possível visualizar quantas partidas foram vencidas e quantas foram perdidas, empates, no entanto, são descartados;
+  - **Pendente**: Tornar a página responsiva.
 
   ### Como Jogar
 
