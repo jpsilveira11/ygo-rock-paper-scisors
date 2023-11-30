@@ -61,14 +61,14 @@ const cards=[
 function matchup(playerCard,opponentCard) {
     if (playerCard.beats===opponentCard.type){
         state.score.player++;
-        return "Won!";
+        return "Won";
     }
     if(playerCard.beatenBy===opponentCard.type) {
         state.score.opponent++;
-        return "Lost!";
+        return "Lost";
     }
     if(playerCard.type===opponentCard.type){
-        return "Tie!";
+        return "Tie";
     } 
 }
 
@@ -98,7 +98,10 @@ async function duel(playerCardID,opponentCardID){
     let playerCard=cards[playerCardID];
     let opponentCard=cards[opponentCardID];
     let result=matchup(playerCard, opponentCard);
-    return result;
+    if (result==='Won' || result==='Lost'){
+        await playSFX(result);
+    } 
+    return `${result}!`;
 }
 
 async function newScore(){
@@ -111,6 +114,11 @@ async function newDuel(){
     state.cardsOnField.player.style.display="none";
     state.cardsOnField.opponent.style.display="none";
     run();
+}
+
+async function playSFX(status){
+const audio=new Audio(`./src/assets/audios/${status}.wav`);
+audio.play();
 }
 
 async function drawButton(result){
